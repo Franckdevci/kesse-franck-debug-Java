@@ -1,43 +1,68 @@
 package com.hemebiotech.analytics;
 
-import java.io.*;
-import java.util.HashMap;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.Map;
 
-public class WriteSymptomDataToFile implements ISymptomWriter{
+/**
+ * implementation of the method of the interface ISymptomWriter with annotation @Override.
+ *
+ */
+public class WriteSymptomDataToFile implements ISymptomWriter {
+    private String filepath;
+
+    public WriteSymptomDataToFile() {
+        this.filepath = "/Users/user/Documents/FORMATION 2024/OC JAVA/projets/projet2/kesse-franck-debug-Java/Project02Eclipse/result.out";
+    }
 
     @Override
     public void writeSymptoms(Map<String, Integer> symptoms) {
 
-        Map<String, Integer> input = new HashMap<>();
+        try {
 
-        input.put("Palu", 101);
-        input.put("Palue", 102);
+            if (filepath != null && !symptoms.isEmpty()) {
 
-        //new file object
-        String filepath = "/Users/user/Documents/FORMATION 2024/OC JAVA/projets/projet2/kesse-franck-debug-Java/Project02Eclipse/symptoms.txt";
-        File file = new File(filepath);
+                FileWriter fileWriter = new FileWriter(filepath, false);
+                BufferedWriter writer = new BufferedWriter(fileWriter);
 
-        try (BufferedWriter bf = new BufferedWriter(new FileWriter(file))) {
+                Iterator<Map.Entry<String, Integer>> iteratorMap = symptoms.entrySet().iterator();
 
-            //create new BufferedWriter for the output file
+                iteratorMap.forEachRemaining(
+                        (entrySymptomAndNumberOfOccurrences) -> {
+                            System.out.println(
+                                    "number of "
+                                            + entrySymptomAndNumberOfOccurrences.getKey()
+                                            + " : "
+                                            + entrySymptomAndNumberOfOccurrences.getValue()
+                            );
+                            try {
+                                writer.write(entrySymptomAndNumberOfOccurrences.getKey()
+                                        + " : "
+                                        + entrySymptomAndNumberOfOccurrences.getValue());
+                                writer.newLine();
+                            } catch (IOException e) {
+                                System.err.println(" writing symptoms to file result.out failed : "
+                                        + e.getMessage());
+                                e.printStackTrace();
+                            }
+                        });
 
-            //iterate map entries
-            for (Map.Entry<String, Integer> entry : input.entrySet()) {
-
-                // put key and value separated by a colon
-                bf.write(entry.getKey() + ":" + entry.getValue());
-
-                //new line
-                bf.newLine();
+                writer.close();
+                System.out.println("The file result.out get all list of symtoms,"
+                        + "the number of occurrences after writing in it");
             }
-
-            bf.flush();
-
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
+            System.err.println("a possible error of path of the file result.out : " + e.getMessage());
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            System.err.println("mapSymptomsOccurencesSorted is empty : " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("an error has occured" + e.getMessage());
             e.printStackTrace();
         }
-
     }
-
 }
