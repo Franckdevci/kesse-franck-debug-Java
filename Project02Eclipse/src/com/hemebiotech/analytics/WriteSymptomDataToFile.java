@@ -33,9 +33,10 @@ public class WriteSymptomDataToFile implements ISymptomWriter {
                 iteratorMap.forEachRemaining(
                         (entrySymptomAndNumberOfOccurrences) -> {
                             System.out.println(
-                                    "number of "
+                                    "Symptoms :"
                                             + entrySymptomAndNumberOfOccurrences.getKey()
-                                            + " : "
+                                            + "   "
+                                            + "Compte"
                                             + entrySymptomAndNumberOfOccurrences.getValue()
                             );
                             try {
