@@ -36,7 +36,6 @@ public class WriteSymptomDataToFile implements ISymptomWriter {
                                     "Symptoms :"
                                             + entrySymptomAndNumberOfOccurrences.getKey()
                                             + "   "
-                                            + "Compte"
                                             + entrySymptomAndNumberOfOccurrences.getValue()
                             );
                             try {

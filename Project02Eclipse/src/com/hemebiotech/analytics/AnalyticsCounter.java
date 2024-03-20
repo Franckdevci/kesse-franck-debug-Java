@@ -15,6 +15,8 @@ public class AnalyticsCounter {
 	private  ISymptomReader reader;
 	private ISymptomWriter writer;
 
+	private int a = 2;
+	
 	public AnalyticsCounter(ISymptomReader reader, ISymptomWriter writer){
 		this.reader = reader;
 		this.writer = writer;
@@ -24,8 +26,10 @@ public class AnalyticsCounter {
 		return reader.getSymptoms();
 	}
 
+
+
 	public Map<String, Integer> countSymptoms(List<String> symptoms) {
-		Map<String, Integer> mapSymptomsOccurences = new HashMap<String, Integer>();
+		Map<String, Integer> mapSymptomsOccurences = new HashMap<>();
 
 		try {
 			if (!symptoms.isEmpty()) {
@@ -55,10 +59,9 @@ public class AnalyticsCounter {
 		BufferedReader reader = new BufferedReader (new FileReader("/Users/user/Documents/FORMATION 2024/OC JAVA/projets/projet2/kesse-franck-debug-Java/Project02Eclipse/symptoms.txt"));
 		String line = reader.readLine();
 
-		int i = 0;
 		int headCount = 0;	// counts headaches
 		while (line != null) {
-			i++;	// increment i
+
 			System.out.println("symptom from file: " + line);
 			if (line.equals("headache")) {
 				headCount++;
