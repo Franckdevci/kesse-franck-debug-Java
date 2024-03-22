@@ -26,8 +26,6 @@ public class AnalyticsCounter {
 		return reader.getSymptoms();
 	}
 
-
-
 	public Map<String, Integer> countSymptoms(List<String> symptoms) {
 		Map<String, Integer> mapSymptomsOccurences = new HashMap<>();
 
